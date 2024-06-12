@@ -1,8 +1,11 @@
+import { UserButton } from '@clerk/nextjs'
 import React from 'react'
 
 const page = () => {
   return (
-    <div><button class="btn btn-secondary">Secondary</button></div>
+    <div>
+      <UserButton/>
+    </div>
   )
 }
 
