@@ -1,4 +1,4 @@
-const { pgTable,serial,varchar,text } = require("drizzle-orm/pg-core");
+const { pgTable,serial,varchar,text, integer,boolean} = require("drizzle-orm/pg-core");
 
 export const userInfo = pgTable('userInfo',{
     id : serial('id').primaryKey(),
@@ -9,4 +9,17 @@ export const userInfo = pgTable('userInfo',{
     location:varchar('location'),
     link:varchar('link'),
     profileImage:varchar('profileImage')
+})
+
+export const project = pgTable('projects',{
+    id:serial('id').primaryKey(),
+    name:varchar('name'),
+    desc:text('desc'),
+    url:varchar('url').notNull(),
+    logo:varchar('logo'),
+    banner:varchar('banner'),
+    category:varchar('category'),
+    active:boolean('active').$default(true),
+    emailRef:varchar('emailRef'),
+    userRef:integer('userRef').references(()=>userInfo?.id)
 })
