@@ -5,5 +5,7 @@ export const userInfo = pgTable('userInfo',{
     name:varchar('name').notNull(),
     email : varchar('email').notNull(),
     username:varchar('username'),
-    bio:text('bio')
+    bio:text('bio'),
+    location:varchar('location'),
+    link:varchar('link')
 })
