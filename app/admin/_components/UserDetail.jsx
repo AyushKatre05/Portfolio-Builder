@@ -1,9 +1,12 @@
 import { UserDetailContext } from "@/app/_context/UserDetailContext";
 import { db } from "@/utils";
+import { storage } from "@/utils/firebaseConfig";
 import { userInfo } from "@/utils/schema";
 import { useUser } from "@clerk/nextjs";
 import { eq } from "drizzle-orm";
+import { ref, uploadBytes } from "firebase/storage";
 import { Camera, Link2, MapPin } from "lucide-react";
+import Image from "next/image";
 import React, { useContext, useEffect, useState } from "react";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
@@ -15,9 +18,9 @@ const UserDetail = () => {
 
   const { userDetail, setUserDetail } = useContext(UserDetailContext);
   const [selectedOption, setSelectedOption] = useState();
-
+  const [profileImage,setProfileImage] = useState();
   useEffect(() => {
-    userDetail && console.log(userDetail);
+    userDetail && setProfileImage(userDetail?.profileImage);
   }, [userDetail]);
 
   const onInputChange = (e, fieldName) => {
@@ -41,10 +44,32 @@ const UserDetail = () => {
     }, 1000);
   };
 
+  const handleFileUpload=(e)=>{
+    const file = e.target.files[0];
+
+    const fileName = Date.now().toString()+'.'+file.type.split('/')[1]; 
+    const storageRef = ref(storage, fileName);
+uploadBytes(storageRef, file).then(async(snapshot) => {
+  const result = await db.update(userInfo).set({
+    profileImage:fileName+"?alt=media"
+  }).where(eq(userInfo.email,user?.primaryEmailAddress.emailAddress))
+  if(result){
+    setProfileImage(fileName)
+    toast.success('saved',{
+      position:'top-right'
+    })
+  }
+},(e)=>console.log(e));
+  }
+
   return (
     <div className="p-7 rounded-lg bg-gray-800 my-7">
       <div className="flex gap-5 items-center">
-        <Camera className="p-3 h-12 w-12 bg-gray-500 rounded-full" />
+      {profileImage? <Image src={profileImage} width={40} height={40} alt="profile_image"/>:
+        <div><label htmlFor="file-input">
+        <Camera className="p-3 h-12 w-12 bg-gray-500 rounded-full cursor-pointer"/>
+        </label>
+        <input accept="image/png,image/gif,image/jpeg,image/jpg" onChange={handleFileUpload} type="file" id="file-input" style={{display:'none'}}/></div>}
         <input
           defaultValue={userDetail?.name}
           onChange={(e) => onInputChange(e, "name")}
