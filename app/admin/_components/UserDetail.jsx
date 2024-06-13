@@ -3,6 +3,7 @@ import { db } from "@/utils";
 import { storage } from "@/utils/firebaseConfig";
 import { userInfo } from "@/utils/schema";
 import { useUser } from "@clerk/nextjs";
+import { TwicImg, TwicPicture } from "@twicpics/components/react";
 import { eq } from "drizzle-orm";
 import { ref, uploadBytes } from "firebase/storage";
 import { Camera, Link2, MapPin } from "lucide-react";
@@ -76,13 +77,15 @@ const UserDetail = () => {
       <div className="flex gap-5 items-center">
         {profileImage ? (
           <label htmlFor="file-input" className="cursor-pointer">
-          <Image
+          {/* <Image
             src={BASE_URL + profileImage}
             width={40}
             height={40}
             alt="profile_image"
             htmlFor="file-input"
-          />
+          /> */}
+          <TwicPicture src={profileImage} className='w-10 h-10 rounded-full'></TwicPicture>
+          {/* <TwicImg src={profileImage}/> */}
           </label>
         ) : (
           <div>
