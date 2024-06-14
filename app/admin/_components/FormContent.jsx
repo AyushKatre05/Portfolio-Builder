@@ -23,11 +23,11 @@ const FormContent = () => {
   }
 
   return (
-    <div className='py-10 px-6'>
+    <div className='py-12 px-6 overflow-auto'>
       <h2 className='text-3xl font-bold'>Start Designing Your Portfolio</h2>
       <UserDetail/>
       <hr className='my-5'></hr>
-      <AddProject/>
+      <AddProject refreshData={GetProjectList}/>
       <ProjectListEdit projectList={projectList} refreshData={GetProjectList}/>
     </div>
   )

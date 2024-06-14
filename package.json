@@ -14,11 +14,13 @@
     "@clerk/nextjs": "^5.1.4",
     "@neondatabase/serverless": "^0.9.3",
     "@twicpics/components": "^0.29.1",
+    "chart.js": "^4.4.3",
     "drizzle-orm": "^0.31.2",
     "firebase": "^10.12.2",
     "lucide-react": "^0.394.0",
     "next": "14.2.4",
     "react": "^18.3.1",
+    "react-chartjs-2": "^5.2.0",
     "react-dom": "^18.3.1",
     "react-toastify": "^10.0.5",
     "sweetalert2": "^11.11.1"

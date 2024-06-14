@@ -19,7 +19,8 @@ export const project = pgTable('projects',{
     logo:varchar('logo'),
     banner:varchar('banner'),
     category:varchar('category'),
-    active:boolean('active').$default(true),
+    active:boolean('active').default(true),
     emailRef:varchar('emailRef'),
-    userRef:integer('userRef').references(()=>userInfo?.id)
+    userRef:integer('userRef').references(()=>userInfo?.id),
+    showGraph:boolean('showGraph').default(true),
 })
