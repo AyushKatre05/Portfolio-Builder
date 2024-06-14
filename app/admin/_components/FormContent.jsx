@@ -5,6 +5,7 @@ import { db } from '@/utils'
 import { project } from '@/utils/schema'
 import { useUser } from '@clerk/nextjs'
 import { desc, eq } from 'drizzle-orm'
+import ProjectListEdit from './ProjectListEdit'
 
 const FormContent = () => {
 
@@ -27,6 +28,7 @@ const FormContent = () => {
       <UserDetail/>
       <hr className='my-5'></hr>
       <AddProject/>
+      <ProjectListEdit projectList={projectList} refreshData={GetProjectList}/>
     </div>
   )
 }
